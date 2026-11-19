@@ -40,6 +40,10 @@ class Hub:
             return self._speak(str(req.get("text") or ""), req.get("preset"), bool(req.get("interrupt", True)))
         if action == "filler":
             return self._filler(str(req.get("text") or ""), float(req.get("min_gap") or 0))
+        if action == "alert":  # 判断待ちの知らせ: 間引かず、話し中なら後ろに並べる(静かにモードでは言わない)
+            if self.quiet:
+                return {"ok": True, "spoken": False}
+            return {"ok": True, "spoken": bool(self._say(str(req.get("text") or ""), None, interrupt=False))}
         if action == "stop":
             self.player.stop()
             return {"ok": True, "message": "止めました。"}

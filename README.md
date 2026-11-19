@@ -17,6 +17,7 @@ acknowledgement or progress report while it works.
 | ✅ | Reads a 1–3 sentence summary of every reply (no paths, code, URLs or boilerplate) |
 | ✅ | Acknowledges each request ("承知しました" — "Understood") |
 | ✅ | Random fillers and progress reports while working, matched to the tool ("Running the tests") |
+| ✅ | Tells you when it is waiting for you: permission prompts, questions, plan approval |
 | ✅ | Four voice presets (JARVIS-like butler, android, operator, robot) |
 | ✅ | Quiet mode (stops speech and fillers) |
 | ✅ | No overlapping voices across sessions and windows (one player per machine) |
@@ -40,6 +41,9 @@ hooks (fillers) ────────────────────┘ 
 - **Fillers:** the hook only picks a phrase and posts it to the hub, then exits immediately, so Claude is
   never slowed down. The hub skips a filler while speaking, in quiet mode, or right after speaking.
   `speak` interrupts fillers.
+- **Waiting alerts:** when Claude asks a question (`AskUserQuestion`), asks to approve a plan
+  (`ExitPlanMode`) or shows a permission prompt (`Notification`), it always says so — queued
+  after current speech, never throttled, silent only in quiet mode.
 
 ## Requirements
 
@@ -86,6 +90,9 @@ Add to `~/.claude/settings.json` (merge into existing `permissions` / `hooks` if
         "matcher": "*",
         "hooks": [{ "type": "command", "command": "voicevox-assistant-hook", "timeout": 3 }]
       }
+    ],
+    "Notification": [
+      { "hooks": [{ "type": "command", "command": "voicevox-assistant-hook", "timeout": 3 }] }
     ]
   }
 }
@@ -143,6 +150,8 @@ Follow each character's terms of use: credit "VOICEVOX:(character name)" when pu
 | `VOICE_ASSISTANT_FILLER_RATE` | `0.5` | Chance of a filler on each tool call |
 | `VOICE_ASSISTANT_FILLER_GAP` | `25` | Seconds of silence required before a filler |
 | `VOICE_ASSISTANT_ACK_RATE` | `0.8` | Chance of acknowledging a request |
+| `VOICE_ASSISTANT_PERMISSION_ALERT` | `on` | Say so when a permission prompt appears |
+| `VOICE_ASSISTANT_IDLE_ALERT` | `off` | Say so when Claude has been waiting for input (the summary already says it's done) |
 
 Pass them to the MCP server with `claude mcp add ... -e VOICE_ASSISTANT_PRESET=android -- voicevox-assistant-mcp`,
 and to the hooks with `env` in `settings.json`. If you change the port, set the same value in both.

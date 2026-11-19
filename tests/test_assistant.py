@@ -102,3 +102,29 @@ def test_hook_choose() -> None:
 
 def test_split_and_clean() -> None:
     assert engine.split_sentences("[リンク](https://x) を見て。`code` です！") == ["リンク を見て。", "code です！"]
+
+
+def test_hook_alert(monkeypatch: pytest.MonkeyPatch) -> None:
+    assert hook.alert({"hook_event_name": "PreToolUse", "tool_name": "AskUserQuestion"}) in hook.QUESTION
+    assert hook.alert({"hook_event_name": "PreToolUse", "tool_name": "ExitPlanMode"}) in hook.PLAN
+    assert hook.alert({"hook_event_name": "PreToolUse", "tool_name": "Bash"}) is None
+    perm = {"hook_event_name": "Notification", "notification_type": "permission_prompt"}
+    assert hook.alert(perm) in hook.PERMISSION
+    legacy = {"hook_event_name": "Notification", "message": "Claude needs your permission to use Bash"}
+    assert hook.alert(legacy) in hook.PERMISSION
+    idle = {"hook_event_name": "Notification", "notification_type": "idle_prompt"}
+    assert hook.alert(idle) is None  # 既定は無効
+    monkeypatch.setenv("VOICE_ASSISTANT_IDLE_ALERT", "on")
+    assert hook.alert(idle) in hook.IDLE
+    monkeypatch.setenv("VOICE_ASSISTANT_PERMISSION_ALERT", "off")
+    assert hook.alert(perm) is None
+
+
+def test_alert_is_queued_while_busy_but_not_in_quiet(calls: dict[str, list]) -> None:
+    h = hub.Hub()
+    h.handle({"action": "speak", "text": "一文目です。"})
+    assert h.handle({"action": "alert", "text": "許可をお願いします。"})["spoken"] is True  # 話し中でも並べる
+    _wait(h.player)
+    assert [t for t, _ in calls["synth"]] == ["一文目です。", "許可をお願いします。"]
+    h.handle({"action": "quiet", "on": True})
+    assert h.handle({"action": "alert", "text": "許可をお願いします。"})["spoken"] is False

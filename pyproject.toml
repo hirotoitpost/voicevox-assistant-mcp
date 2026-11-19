@@ -1,6 +1,6 @@
 [project]
 name = "voicevox-assistant-mcp"
-version = "0.1.0"
+version = "0.2.0"
 description = "VOICEVOX voice assistant for Claude Code: spoken summaries of replies (MCP server) and progress fillers (hooks)"
 readme = "README.md"
 license = "MIT"
