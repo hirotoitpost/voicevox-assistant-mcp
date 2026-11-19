@@ -106,6 +106,10 @@ Restart Claude Code (in VS Code: "Developer: Reload Window").
 
 ### Update / uninstall
 
+On Windows, files in use cannot be replaced: **close every Claude Code session and VS Code window
+first** (the MCP server is running), then update from a separate terminal.
+
+
 ```powershell
 uv tool upgrade voicevox-assistant-mcp    # update, then restart
 uv tool uninstall voicevox-assistant-mcp  # also run: claude mcp remove voice-assistant, and remove the hooks

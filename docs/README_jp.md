@@ -101,6 +101,10 @@ Claude Code を再起動します(VS Code は「ウィンドウの再読み込�
 
 ### 更新・削除
 
+Windows では使用中のファイルを置き換えられません。**Claude Code のセッションと VS Code のウィンドウをすべて閉じてから**
+(MCP サーバーが動いているため)、別のターミナルで更新してください。
+
+
 ```powershell
 uv tool upgrade voicevox-assistant-mcp   # 更新(そのあと再起動)
 uv tool uninstall voicevox-assistant-mcp # 削除(claude mcp remove voice-assistant と settings.json のフックも外す)
