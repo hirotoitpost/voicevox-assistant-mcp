@@ -16,6 +16,7 @@
 | ✅ | 答えごとに 1〜3 文の要約を読み上げる(パス・コード・URL・決まり文句は読まない) |
 | ✅ | 依頼を受けたときの返事(「承知しました」など) |
 | ✅ | 作業中のランダムな相槌・経過報告(ツールの種類に合わせる: 「テストを実行しています」など) |
+| ✅ | 判断待ちを知らせる(許可を求めるとき・質問するとき・計画の承認を求めるとき) |
 | ✅ | 声のプリセット 4 種(ジャービス風・アンドロイド・オペレーター・ロボット) |
 | ✅ | 静かにモード(読み上げと相槌を止める) |
 | ✅ | 複数のセッション・ウィンドウでも声が重ならない(PC 全体で 1 か所が再生) |
@@ -36,6 +37,8 @@ Claude Code ──(stdio)── MCP サーバー ─┼─ HTTP 127.0.0.1:38121 
   持ち主が終わったら、次に話そうとしたサーバーが引き継ぎます
 - **相槌:** フックは文を選んでハブに送るだけで、すぐ終わります(Claude の作業を止めません)。
   ハブは、話し中・静かにモード・直前に話したばかりのときは言いません。`speak` は相槌を止めて割り込みます
+- **判断待ちの知らせ:** 質問(`AskUserQuestion`)・計画の承認(`ExitPlanMode`)・許可の確認(`Notification`)のときは
+  必ず知らせます。話し中なら後ろに並べ、間引きません(静かにモードでは言いません)
 
 ## 必要なもの
 
@@ -82,6 +85,9 @@ VS Code 拡張だけを使っていて `claude` コマンドが無いときは�
         "matcher": "*",
         "hooks": [{ "type": "command", "command": "voicevox-assistant-hook", "timeout": 3 }]
       }
+    ],
+    "Notification": [
+      { "hooks": [{ "type": "command", "command": "voicevox-assistant-hook", "timeout": 3 }] }
     ]
   }
 }
@@ -94,6 +100,10 @@ VS Code 拡張だけを使っていて `claude` コマンドが無いときは�
 Claude Code を再起動します(VS Code は「ウィンドウの再読み込み」)。
 
 ### 更新・削除
+
+Windows では使用中のファイルを置き換えられません。**Claude Code のセッションと VS Code のウィンドウをすべて閉じてから**
+(MCP サーバーが動いているため)、別のターミナルで更新してください。
+
 
 ```powershell
 uv tool upgrade voicevox-assistant-mcp   # 更新(そのあと再起動)
@@ -139,6 +149,8 @@ uv tool uninstall voicevox-assistant-mcp # 削除(claude mcp remove voice-assist
 | `VOICE_ASSISTANT_FILLER_RATE` | `0.5` | ツールを使うときに相槌を言う確率 |
 | `VOICE_ASSISTANT_FILLER_GAP` | `25` | 前に話してから相槌まで空ける秒数 |
 | `VOICE_ASSISTANT_ACK_RATE` | `0.8` | 依頼を受けたときに返事をする確率 |
+| `VOICE_ASSISTANT_PERMISSION_ALERT` | `on` | 許可を求めるときに知らせる |
+| `VOICE_ASSISTANT_IDLE_ALERT` | `off` | 入力待ちが続いたときに知らせる(答えの要約で終わりは伝わるので既定は無効) |
 
 MCP サーバーへは `claude mcp add ... -e VOICE_ASSISTANT_PRESET=android -- voicevox-assistant-mcp` で、
 フックへは `settings.json` の `env` で渡します。ポートを変えるときは両方に同じ値を渡してください。

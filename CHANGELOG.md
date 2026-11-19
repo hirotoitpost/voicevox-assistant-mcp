@@ -14,6 +14,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.2.0] - 2026-11-20
+
+### Added
+
+- **Waiting alerts** — the hook always speaks when Claude waits for the user: `AskUserQuestion`
+  (question), `ExitPlanMode` (plan approval) and `Notification` permission prompts. Alerts are queued
+  after current speech, never throttled, and silent in quiet mode. `VOICE_ASSISTANT_PERMISSION_ALERT`
+  (default on) and `VOICE_ASSISTANT_IDLE_ALERT` (default off) control the notifications
+- The settings example adds a `Notification` hook
+
+### Changed
+
+- `VOICE_ASSISTANT_FILLER=off` now disables only fillers; waiting alerts stay on
+
+---
+
 ## [0.1.0] - 2026-11-20
 
 ### Added
