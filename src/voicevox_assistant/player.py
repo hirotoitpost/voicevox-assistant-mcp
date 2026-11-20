@@ -30,6 +30,17 @@ PRESETS: dict[str, Preset] = {
     "android": Preset("アンドロイド(ナースロボ)", "ナースロボ＿タイプＴ", "ノーマル", 47, speed=1.1),
     "announce": Preset("冷静なオペレーター(No.7 アナウンス)", "No.7", "アナウンス", 30, speed=1.15),
     "voidoll": Preset("ロボット(Voidoll)", "Voidoll", "ノーマル", 89, speed=1.1),
+    # 解説・実況動画でよく使われる女性キャラクター
+    "tsumugi": Preset("春日部つむぎ", "春日部つむぎ", "ノーマル", 8),
+    "metan": Preset("四国めたん", "四国めたん", "ノーマル", 2),
+    "zundamon": Preset("ずんだもん", "ずんだもん", "ノーマル", 3),
+    "himari": Preset("冥鳴ひまり", "冥鳴ひまり", "ノーマル", 14),
+    "sora": Preset("九州そら", "九州そら", "ノーマル", 16),
+    "hau": Preset("雨晴はう", "雨晴はう", "ノーマル", 10),
+    "ritsu": Preset("波音リツ", "波音リツ", "ノーマル", 9),
+    "zunko": Preset("東北ずん子", "東北ずん子", "ノーマル", 107),
+    "kiritan": Preset("東北きりたん", "東北きりたん", "ノーマル", 108),
+    "itako": Preset("東北イタコ", "東北イタコ", "ノーマル", 109),
 }
 DEFAULT_PRESET = "jarvis"
 

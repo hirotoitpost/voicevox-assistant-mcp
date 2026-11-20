@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Playback on macOS / Linux
 - User-defined presets and filler phrases
 
+### Added
+
+- **Character voice presets** — female characters popular in VOICEVOX videos: `tsumugi` (春日部つむぎ),
+  `metan` (四国めたん), `zundamon` (ずんだもん), `himari` (冥鳴ひまり), `sora` (九州そら), `hau` (雨晴はう),
+  `ritsu` (波音リツ), `zunko` (東北ずん子), `kiritan` (東北きりたん), `itako` (東北イタコ)
+
 ---
 
 ## [0.2.0] - 2026-11-20
