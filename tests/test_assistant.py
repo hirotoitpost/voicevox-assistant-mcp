@@ -128,3 +128,10 @@ def test_alert_is_queued_while_busy_but_not_in_quiet(calls: dict[str, list]) -> 
     assert [t for t, _ in calls["synth"]] == ["一文目です。", "許可をお願いします。"]
     h.handle({"action": "quiet", "on": True})
     assert h.handle({"action": "alert", "text": "許可をお願いします。"})["spoken"] is False
+
+
+def test_character_presets_resolve_by_name() -> None:
+    voices = [{"id": 8, "name": "春日部つむぎ", "style": "ノーマル"}, {"id": 2, "name": "四国めたん", "style": "ノーマル"}]
+    assert player.resolve_speaker(player.get_preset("Tsumugi")[1], voices) == 8
+    assert player.resolve_speaker(player.get_preset("metan")[1], voices) == 2
+    assert player.resolve_speaker(player.PRESETS["kiritan"], []) == 108

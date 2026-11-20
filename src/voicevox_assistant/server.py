@@ -38,7 +38,7 @@ def speak(text: str, preset: str | None = None, interrupt: bool = True) -> str:
     """要約した文を声で読み上げる(裏で流すので、すぐ返る)。
 
     text: 話し言葉の要約(1〜3文)。Markdown の記号は外して読む。
-    preset: 声(jarvis / android / announce / voidoll)。省略すると今の既定の声。
+    preset: 声(jarvis / tsumugi / metan / zundamon など。一覧は voice_presets)。省略すると今の既定の声。
     interrupt: True なら読み途中の声(相槌を含む)を止めて置き換える。False なら後ろに並べる。
     """
     return _message(router.send({"action": "speak", "text": text, "preset": preset, "interrupt": interrupt}))
@@ -58,7 +58,10 @@ def set_quiet(on: bool = True) -> str:
 
 @mcp.tool()
 def set_voice(preset: str) -> str:
-    """既定の声を変える(jarvis / android / announce / voidoll)。ずっと変えるなら環境変数 VOICE_ASSISTANT_PRESET。"""
+    """既定の声を変える(jarvis / tsumugi / metan など。一覧は voice_presets)。
+
+    ずっと変えるなら環境変数 VOICE_ASSISTANT_PRESET。
+    """
     return _message(router.send({"action": "voice", "preset": preset}))
 
 

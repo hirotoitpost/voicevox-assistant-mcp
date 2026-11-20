@@ -125,6 +125,16 @@ uv tool uninstall voicevox-assistant-mcp # 削除(claude mcp remove voice-assist
 | `android` | VOICEVOX:ナースロボ＿タイプＴ(ノーマル) |
 | `announce` | VOICEVOX:No.7(アナウンス) — 冷静なオペレーター |
 | `voidoll` | VOICEVOX:Voidoll(ノーマル) |
+| `tsumugi` | VOICEVOX:春日部つむぎ(ノーマル) |
+| `metan` | VOICEVOX:四国めたん(ノーマル) |
+| `zundamon` | VOICEVOX:ずんだもん(ノーマル) |
+| `himari` | VOICEVOX:冥鳴ひまり(ノーマル) |
+| `sora` | VOICEVOX:九州そら(ノーマル) |
+| `hau` | VOICEVOX:雨晴はう(ノーマル) |
+| `ritsu` | VOICEVOX:波音リツ(ノーマル) |
+| `zunko` | VOICEVOX:東北ずん子(ノーマル) |
+| `kiritan` | VOICEVOX:東北きりたん(ノーマル) |
+| `itako` | VOICEVOX:東北イタコ(ノーマル) |
 
 各キャラクターの利用規約に従い、録音した音声を公開するときは「VOICEVOX:(キャラ名)」のクレジットを入れてください。
 
